@@ -153,14 +153,6 @@ module "s3_alb_access_log" {
   iam_account_id = var.iam_account_id
 }
 
-module "s3_cloudfront_access_log" {
-  source = "../../module/s3"
-
-  general_config = var.general_config
-  bucket_role    = "cloudfront-access-log"
-  iam_account_id = var.iam_account_id
-}
-
 ##DNS
 module "naked_domain" {
   source = "../../module/route53"
@@ -199,26 +191,6 @@ module "acm_alb" {
   zone_id     = var.zone_id
   domain_name = var.domain_name
   sans        = var.sans
-}
-
-module "acm_cloudfront" {
-  source = "../../module/acm"
-
-  zone_id     = var.zone_id
-  domain_name = var.domain_name
-  sans        = var.sans
-}
-
-##CloudFront
-module "cloudfront" {
-  source = "../../module/cloudfront"
-
-  general_config                           = var.general_config
-  zone_name                                = var.zone_name
-  domain_name                              = var.domain_name
-  alb_id                                   = module.alb.alb_id
-  cert_cloudfront_arn                      = module.acm_cloudfront.cert_cloudfront_arn
-  cloudfront_access_log_bucket_domain_name = module.s3_cloudfront_access_log.bucket_domain_name
 }
 
 ##RDS
