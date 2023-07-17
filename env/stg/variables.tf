@@ -166,13 +166,6 @@ variable "sans" {
   default     = "*.onya-lab.site"
 }
 
-##CloudFront
-variable "zone_name" {
-  description = "Zone name for CloudFront's aliases"
-  type        = string
-  default     = "onya-lab.site"
-}
-
 ##RDS Option Group
 variable "engine_name" {
   type    = string
@@ -254,4 +247,39 @@ variable "cwa_threshold_rds_freeablestorage" {
   type        = number
   #17GB
   default = 18253611008
+}
+
+##ECR Image Name
+variable "repository_name" {
+  description = "ECR repository name"
+  type        = string
+  default     = "ecs_cicd_terraform-image"
+}
+
+##Docker Image Name
+variable "image_name" {
+  description = "Dockerimage name"
+  type        = string
+  default     = "takahiros991/ecs_cicd_terraform-image"
+}
+
+##Dockerfile Directory
+#variable "docker_dir" {
+#  description = "directory where the Dockerfile is"
+#  type = string
+#  default     = "."
+#}
+
+##Fargate CPU
+variable "fargate_cpu" {
+  description = "fargate cpu"
+  type        = string
+  default     = "256"
+}
+
+##Fargate Memory
+variable "fargate_memory" {
+  description = "fargate memory"
+  type        = string
+  default     = "512"
 }

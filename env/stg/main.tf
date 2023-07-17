@@ -153,6 +153,14 @@ module "s3_alb_access_log" {
   iam_account_id = var.iam_account_id
 }
 
+module "s3_pipeline_bucket" {
+  source = "../../module/s3"
+
+  general_config = var.general_config
+  bucket_role    = "code_pipeline_bucket"
+  iam_account_id = var.iam_account_id
+}
+
 ##DNS
 module "naked_domain" {
   source = "../../module/route53"
@@ -233,4 +241,25 @@ module "cloudwatch" {
   rds_identifier                    = module.rds.rds_identifier
   cwa_threshold_rds_freeablememory  = var.cwa_threshold_rds_freeablememory
   cwa_threshold_rds_freeablestorage = var.cwa_threshold_rds_freeablestorage
+}
+
+##ECS
+module "ecs" {
+  source = "../../module/ecs"
+
+  general_config                    = var.general_config
+  tg_arn                  = module.alb.tg_arn
+  fargate_cpu = var.fargate_cpu
+  fargate_memory = var.fargate_memory
+  public_subnet_ids = module.network.public_subnet_ids
+  internal_sg_id       = module.internal_sg.security_group_id
+}
+
+##ECR
+module "ecs" {
+  source = "../../module/ecr"
+
+  regions                    = var.regions
+  repository_name                  = var.repository_name
+  image_name = var.image_name
 }
