@@ -237,13 +237,15 @@ module "cloudwatch" {
 module "ecs" {
   source = "../../module/ecs"
 
-  general_config    = var.general_config
-  tg_arn            = module.alb.tg_arn
-  fargate_cpu       = var.fargate_cpu
-  fargate_memory    = var.fargate_memory
-  public_subnet_ids = module.network.public_subnet_ids
-  internal_sg_id    = module.internal_sg.security_group_id
-  iam_ecs_arn       = module.iam_ecs.iam_role_arn
+  general_config            = var.general_config
+  tg_arn                    = module.alb.tg_arn
+  ecr_repository            = module.ecr.ecr_repository
+  cloudwatch_log_group_name = module.cloudwatch.cloudwatch_log_group_name
+  fargate_cpu               = var.fargate_cpu
+  fargate_memory            = var.fargate_memory
+  public_subnet_ids         = module.network.public_subnet_ids
+  internal_sg_id            = module.internal_sg.security_group_id
+  iam_ecs_arn               = module.iam_ecs.iam_role_arn
 }
 
 ##ECR
@@ -261,8 +263,8 @@ module "iam_ecs" {
 
   role_name   = var.role_name_1
   policy_name = var.policy_name_1
-  role_json   = file("${path.module}/roles/fargate_task_assume_role.json")
-  policy_json = file("${path.module}/roles/task_execution_policy.json")
+  role_json   = file("../../module/roles/fargate_task_assume_role.json")
+  policy_json = file("../../module/roles/task_execution_policy.json")
 }
 
 module "iam_codebuild" {
@@ -270,8 +272,8 @@ module "iam_codebuild" {
 
   role_name   = var.role_name_2
   policy_name = var.policy_name_2
-  role_json   = file("${path.module}/roles/codebuild_assume_role.json")
-  policy_json = file("${path.module}/roles/codebuild_build_policy.json")
+  role_json   = file("../../module/roles/codebuild_assume_role.json")
+  policy_json = file("../../module/roles/codebuild_build_policy.json")
 }
 
 module "iam_codepipeline" {
@@ -279,17 +281,8 @@ module "iam_codepipeline" {
 
   role_name   = var.role_name_3
   policy_name = var.policy_name_3
-  role_json   = file("${path.module}/roles/codepipeline_assume_role.json")
-  policy_json = file("${path.module}/roles/codepipeline_pipeline_policy.json")
-}
-
-module "iam_codepipeline" {
-  source = "../../module/iam"
-
-  role_name   = var.role_name_3
-  policy_name = var.policy_name_3
-  role_json   = file("${path.module}/roles/codepipeline_assume_role.json")
-  policy_json = file("${path.module}/roles/codepipeline_pipeline_policy.json")
+  role_json   = file("../../module/roles/codepipeline_assume_role.json")
+  policy_json = file("../../module/roles/codepipeline_pipeline_policy.json")
 }
 
 ##Codebuild
@@ -297,8 +290,8 @@ module "codebuild" {
   source = "../../module/codebuild"
 
   general_config    = var.general_config
+  regions           = var.regions
   iam_codebuild_arn = module.iam_codebuild.iam_role_arn
-  account_id        = var.account_id
   github_url        = var.github_url
   vpc_id            = module.network.vpc_id
   public_subnet_ids = module.network.public_subnet_ids
@@ -317,8 +310,8 @@ module "codepipeline" {
   source = "../../module/codepipeline"
 
   general_config                     = var.general_config
-  iam_codepupeline_arn               = module.iam_codepipeline.iam_role_arn
-  bucket_name                        = module.s3_pipeline_bucket.bucket_name
+  iam_codepipeline_arn               = module.iam_codepipeline.iam_role_arn
+  bucket_id                          = module.s3_pipeline_bucket.bucket_id
   branch_name                        = var.branch_name
   full_repositroy_id                 = var.full_repositroy_id
   codebuild_project_name             = module.codebuild.codebuild_project_name

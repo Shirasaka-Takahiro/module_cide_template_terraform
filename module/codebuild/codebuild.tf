@@ -40,7 +40,7 @@ resource "aws_codebuild_project" "project" {
 
   vpc_config {
     vpc_id  = var.vpc_id
-    subnets = var.pulic_subnet_ids
+    subnets = var.public_subnet_ids
     security_group_ids = [
       var.internal_sg_id
     ]

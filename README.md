@@ -17,11 +17,7 @@ ACM
 <br />
 ALb x 1(HTTP & HTTPS Listener)
 <br />
-EFS
-<br />
 Route53
-<br />
-CloudFront
 <br />
 RDS
 <br />
@@ -30,6 +26,20 @@ SNS
 CloudWatch
 <br />
 S3
+<br />
+ECR
+<br />
+ECS
+<br />
+Codebuild
+<br />
+Codepipeline
+<br />
+<br />
+Directory including Dockerfile
+<br />
+buildspecfile
+<br />
 
 ■Deploy
 1. Move to direstory
