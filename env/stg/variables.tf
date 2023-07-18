@@ -288,37 +288,58 @@ variable "fargate_memory" {
 variable "role_name_1" {
   description = "ECS IAM role name"
   type        = string
-  default = "role-fargate_task_execution"
+  default     = "role-fargate_task_execution"
 }
 
 variable "policy_name_1" {
   description = "ECS IAM policy name"
   type        = string
-  default = "fargate_task_execution"
+  default     = "fargate_task_execution"
 }
 
 ##IAM Codebuild
 variable "role_name_2" {
   description = "Codebuild IAM role name"
   type        = string
-  default = "role-codebuild-service-role"
+  default     = "role-codebuild-service-role"
 }
 
 variable "policy_name_2" {
   description = "Codebuild IAM policy name"
   type        = string
-  default = "build-policy"
+  default     = "build-policy"
 }
 
 ##IAM Codepipeline
 variable "role_name_3" {
   description = "Codepipeline IAM role name"
   type        = string
-  default = "role-codepipeline-service-role"
+  default     = "role-codepipeline-service-role"
 }
 
 variable "policy_name_3" {
   description = "Codepipeline IAM policy name"
   type        = string
-  default = "pipeline-policy"
+  default     = "pipeline-policy"
+}
+
+##Codebuild Github URL
+variable "github_url" {
+  description = "Codebuild Github URL"
+  type        = string
+  default     = "https://github.com/Shirasaka-Takahiro/ecs_cicd_terraform.git"
+}
+
+##Codepipeline Github Repository ID
+variable "full_repositroy_id" {
+  description = "Codepipeline Github repository id"
+  type        = string
+  default     = "Shirasaka-Takahiro/ecs_cicd_terraform"
+}
+
+##Codepipeline Github Branch Name
+variable "branch_name" {
+  description = "Codepipeline Github branch name"
+  type        = string
+  default     = "main"
 }
