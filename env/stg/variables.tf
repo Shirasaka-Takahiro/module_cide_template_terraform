@@ -283,3 +283,42 @@ variable "fargate_memory" {
   type        = string
   default     = "512"
 }
+
+##IAM ECS
+variable "role_name_1" {
+  description = "ECS IAM role name"
+  type        = string
+  default = "role-fargate_task_execution"
+}
+
+variable "policy_name_1" {
+  description = "ECS IAM policy name"
+  type        = string
+  default = "fargate_task_execution"
+}
+
+##IAM Codebuild
+variable "role_name_2" {
+  description = "Codebuild IAM role name"
+  type        = string
+  default = "role-codebuild-service-role"
+}
+
+variable "policy_name_2" {
+  description = "Codebuild IAM policy name"
+  type        = string
+  default = "build-policy"
+}
+
+##IAM Codepipeline
+variable "role_name_3" {
+  description = "Codepipeline IAM role name"
+  type        = string
+  default = "role-codepipeline-service-role"
+}
+
+variable "policy_name_3" {
+  description = "Codepipeline IAM policy name"
+  type        = string
+  default = "pipeline-policy"
+}

@@ -3,6 +3,7 @@ variable "general_config" {
 }
 variable "fargate_cpu" {}
 variable "fargate_memory" {}
+variable "iam_ecs_arn" {}
 variable "tg_arn" {}
 variable "ecr_repository" {}
 variable "cloudwatch_log_group_name" {}

@@ -45,3 +45,16 @@ output "alb_https_sg_id" {
 output "instance_ids" {
   value = module.ec2.instance_ids
 }
+
+##IAM
+output "iam_ecs_arn" {
+  value = module.iam_ecs.iam_role_arn
+}
+
+output "iam_codebuild_arn" {
+  value = module.iam_codebuild.iam_role_arn
+}
+
+output "iam_codepipeline_arn" {
+  value = module.iam_codepipeline.iam_role_arn
+}

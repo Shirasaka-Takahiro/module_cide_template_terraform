@@ -253,13 +253,42 @@ module "ecs" {
   fargate_memory = var.fargate_memory
   public_subnet_ids = module.network.public_subnet_ids
   internal_sg_id       = module.internal_sg.security_group_id
+  iam_ecs_arn = module.iam_ecs.iam_ecs_arn
 }
 
 ##ECR
-module "ecs" {
+module "ecr" {
   source = "../../module/ecr"
 
   regions                    = var.regions
   repository_name                  = var.repository_name
   image_name = var.image_name
+}
+
+##IAM
+module "iam_ecs" {
+  source = "../../module/iam"
+
+  role_name = var.role_name_1
+  policy_name = var.policy_name_1
+  role_json = file("${path.module}/roles/fargate_task_assume_role.json")
+  policy_json = file("${path.module}/roles/task_execution_policy.json")
+}
+
+module "iam_codebuild" {
+  source = "../../module/iam"
+
+  role_name = var.role_name_2
+  policy_name = var.policy_name_2
+  role_json = file("${path.module}/roles/codebuild_assume_role.json")
+  policy_json = file("${path.module}/roles/codebuild_build_policy.json")
+}
+
+module "iam_codepipeline" {
+  source = "../../module/iam"
+
+  role_name = var.role_name_3
+  policy_name = var.policy_name_3
+  role_json = file("${path.module}/roles/codepipeline_assume_role.json")
+  policy_json = file("${path.module}/roles/codepipeline_pipeline_policy.json")
 }

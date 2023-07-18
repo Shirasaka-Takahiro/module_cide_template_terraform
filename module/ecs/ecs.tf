@@ -22,7 +22,7 @@ resource "aws_ecs_task_definition" "task" {
   cpu                = var.fargate_cpu
   memory             = var.fargate_memory
   network_mode       = "awsvpc"
-  execution_role_arn = aws_iam_role.fargate_task_execution.arn
+  execution_role_arn = var.iam_ecs_arn
 
   requires_compatibilities = [
     "FARGATE"
