@@ -134,16 +134,6 @@ module "alb" {
   alb_access_log_bucket_id = module.s3_alb_access_log.bucket_id
 }
 
-##EFS
-module "efs" {
-  source = "../../module/efs"
-
-  general_config    = var.general_config
-  public_subnets    = var.public_subnets
-  public_subnet_ids = module.network.public_subnet_ids
-  internal_sg_id    = module.internal_sg.security_group_id
-}
-
 ##S3
 module "s3_alb_access_log" {
   source = "../../module/s3"
