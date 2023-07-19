@@ -32,7 +32,7 @@ resource "aws_lb_target_group" "tg" {
 
   health_check {
     interval            = 30
-    path                = "/healthchek.html"
+    path                = "/"
     port                = "traffic-port"
     protocol            = "HTTP"
     timeout             = 5
@@ -70,12 +70,4 @@ resource "aws_lb_listener" "alb_https_listener" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.tg.arn
   }
-}
-
-##Attach target group to the alb
-resource "aws_lb_target_group_attachment" "attach_tg_to_alb" {
-  count            = length(var.instance_ids)
-  target_id        = element(var.instance_ids, count.index % 2)
-  target_group_arn = aws_lb_target_group.tg.arn
-  port             = 80
 }
