@@ -147,7 +147,7 @@ module "s3_pipeline_bucket" {
   source = "../../module/s3"
 
   general_config = var.general_config
-  bucket_role    = "code_pipeline_bucket"
+  bucket_role    = "code-pipeline-bucket"
   iam_account_id = var.iam_account_id
 }
 

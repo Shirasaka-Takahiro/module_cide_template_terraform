@@ -24,7 +24,7 @@ resource "aws_lb" "alb" {
 ##Target Group
 resource "aws_lb_target_group" "tg" {
   name             = "${var.general_config["project"]}-${var.general_config["env"]}-tg"
-  target_type      = "instance"
+  target_type      = "ip"
   protocol_version = "HTTP1"
   port             = "80"
   protocol         = "HTTP"
