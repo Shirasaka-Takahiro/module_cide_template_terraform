@@ -11,6 +11,10 @@ output "public_subnet_ids" {
   value = module.network.public_subnet_ids
 }
 
+output "dmz_subnet_ids" {
+  value = module.network.dmz_subnet_ids
+}
+
 output "private_subnet_ids" {
   value = module.network.private_subnet_ids
 }

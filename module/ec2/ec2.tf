@@ -1,8 +1,7 @@
 ##Web Instance
-resource "aws_instance" "web" {
+resource "aws_instance" "bastion" {
   ami       = var.ami
-  count     = length(var.public_subnets.subnets)
-  subnet_id = element(var.public_subnet_ids, count.index % 2)
+  subnet_id = var.public_subnet_ids[0]
   vpc_security_group_ids = [
     var.internal_sg_id,
     var.operation_sg_1_id,
@@ -17,18 +16,17 @@ resource "aws_instance" "web" {
   }
 
   tags = {
-    Name = "${var.general_config["project"]}-${var.general_config["env"]}-${format("web%02d", count.index + 1)}"
+    Name = "${var.general_config["project"]}-${var.general_config["env"]}-bastion"
   }
 }
 
 ##Elastic IP
 resource "aws_eip" "eip_ec2" {
   vpc      = true
-  count    = length(aws_instance.web)
-  instance = element(aws_instance.web.*.id, count.index % 2)
+  instance = aws_instance.bastion.id
 
   tags = {
-    Name = "${var.general_config["project"]}-${var.general_config["env"]}-${format("eip%02d", count.index + 1)}"
+    Name = "${var.general_config["project"]}-${var.general_config["env"]}-eip-bastion"
   }
 }
 

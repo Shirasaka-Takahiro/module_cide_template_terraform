@@ -70,18 +70,36 @@ variable "public_subnets" {
   }
 }
 
+variable "dmz_subnets" {
+  type = map(any)
+  default = {
+    subnets = {
+      dmz-1a = {
+        name = "dmz-1a",
+        cidr = "10.0.20.0/24",
+        az   = "ap-northeast-1a"
+      },
+      dmz-1c = {
+        name = "dmz-1c",
+        cidr = "10.0.40.0/24",
+        az   = "ap-northeast-1c"
+      }
+    }
+  }
+}
+
 variable "private_subnets" {
   type = map(any)
   default = {
     subnets = {
       private-1a = {
         name = "private-1a"
-        cidr = "10.0.20.0/24"
+        cidr = "10.0.50.0/24"
         az   = "ap-northeast-1a"
       },
       private-1c = {
         name = "private-1c"
-        cidr = "10.0.40.0/24"
+        cidr = "10.0.70.0/24"
         az   = "ap-northeast-1c"
       }
     }

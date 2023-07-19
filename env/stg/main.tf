@@ -25,6 +25,8 @@ module "network" {
   internet_gateway_id = module.network.internet_gateway_id
   public_subnets      = var.public_subnets
   private_subnets     = var.private_subnets
+  dmz_subnets        = var.dmz_subnets
+  public_subnet_ids  = module.network.public_subnet_ids
 }
 
 ##Security Group Internal
@@ -147,7 +149,7 @@ module "s3_pipeline_bucket" {
   source = "../../module/s3"
 
   general_config = var.general_config
-  bucket_role    = "code-pipeline-bucket"
+  bucket_role    = "code-pipeline"
   iam_account_id = var.iam_account_id
 }
 
@@ -243,7 +245,7 @@ module "ecs" {
   cloudwatch_log_group_name = module.cloudwatch.cloudwatch_log_group_name
   fargate_cpu               = var.fargate_cpu
   fargate_memory            = var.fargate_memory
-  public_subnet_ids         = module.network.public_subnet_ids
+  dmz_subnet_ids         = module.network.dmz_subnet_ids
   internal_sg_id            = module.internal_sg.security_group_id
   iam_ecs_arn               = module.iam_ecs.iam_role_arn
 }
@@ -294,7 +296,7 @@ module "codebuild" {
   iam_codebuild_arn = module.iam_codebuild.iam_role_arn
   github_url        = var.github_url
   vpc_id            = module.network.vpc_id
-  public_subnet_ids = module.network.public_subnet_ids
+  dmz_subnet_ids = module.network.dmz_subnet_ids
   internal_sg_id    = module.internal_sg.security_group_id
 }
 

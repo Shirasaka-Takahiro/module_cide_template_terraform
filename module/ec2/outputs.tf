@@ -1,3 +1,3 @@
 output "instance_ids" {
-  value = aws_instance.web.*.id
+  value = aws_instance.bastion.id
 }

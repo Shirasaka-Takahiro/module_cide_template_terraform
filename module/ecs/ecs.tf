@@ -45,7 +45,7 @@ resource "aws_ecs_service" "service" {
   }
 
   network_configuration {
-    subnets = var.public_subnet_ids
+    subnets = var.dmz_subnet_ids
     security_groups = [
       var.internal_sg_id
     ]
