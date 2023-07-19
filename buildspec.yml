@@ -7,7 +7,7 @@ phases:
       - AWS_ACCOUNT_ID=482122962623
       - ECR_URI=482122962623.dkr.ecr.ap-northeast-1.amazonaws.com
       - REPOSITORY_URI=482122962623.dkr.ecr.ap-northeast-1.amazonaws.com/ecs_cicd_terraform-image
-      - CONTAINER_NAME=example-prod-web01
+      - CONTAINER_NAME=example-stg-web01
       # コミットハッシュの先頭7桁をタグに利用する
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
