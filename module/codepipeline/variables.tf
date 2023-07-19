@@ -2,7 +2,7 @@ variable "general_config" {
   type = map(any)
 }
 variable "iam_codepipeline_arn" {}
-variable "bucket_id" {}
+variable "bucket_name" {}
 variable "full_repositroy_id" {}
 variable "branch_name" {}
 variable "codebuild_project_name" {}

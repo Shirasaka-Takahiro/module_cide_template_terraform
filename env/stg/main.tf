@@ -313,7 +313,7 @@ module "codepipeline" {
 
   general_config                     = var.general_config
   iam_codepipeline_arn               = module.iam_codepipeline.iam_role_arn
-  bucket_id                          = module.s3_pipeline_bucket.bucket_id
+  bucket_name                          = module.s3_pipeline_bucket.bucket_name
   branch_name                        = var.branch_name
   full_repositroy_id                 = var.full_repositroy_id
   codebuild_project_name             = module.codebuild.codebuild_project_name
